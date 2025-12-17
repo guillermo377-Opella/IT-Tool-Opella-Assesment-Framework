@@ -1,2 +1,2 @@
-# IT-Tool-Classification-Assessment-Framework
+# IT-Tool-Opella-Assessment-Framework
 IT Tool Classification Questionnaire
