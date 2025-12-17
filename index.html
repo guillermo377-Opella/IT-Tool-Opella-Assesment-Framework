@@ -3,1028 +3,312 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Software vs. Application Questionnaire</title>
+    <title>Technical Assessment: Digital Workplace</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #2d5a27 0%, #4a7c59 50%, #6b9a5f 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #1e3a1a, #2d5a27, #3e7d32);
-            color: white;
-            padding: 30px;
-            text-align: center;
-        }
-
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-
-        .content {
-            padding: 40px;
-        }
-
-        .initial-filter {
-            background: #f1f8e9;
-            border-left: 5px solid #4caf50;
-            padding: 25px;
-            margin-bottom: 30px;
-            border-radius: 0 10px 10px 0;
-        }
-
-        .initial-filter h2 {
-            color: #2e7d32;
-            margin-bottom: 15px;
-            font-size: 1.4em;
-        }
-
-        .registration-link {
-            background: #e8f5e8;
-            border: 1px solid #81c784;
-            padding: 15px;
-            margin-top: 15px;
-            border-radius: 8px;
-            display: none;
-        }
-
-        .registration-link.show {
-            display: block;
-            animation: slideDown 0.3s ease-out;
-        }
-
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .section {
-            margin-bottom: 35px;
-            padding: 25px;
-            background: #f1f8e9;
-            border-radius: 10px;
-            border-left: 5px solid #66bb6a;
-        }
-
-        .section h3 {
-            color: #1b5e20;
-            margin-bottom: 20px;
-            font-size: 1.3em;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .question {
-            margin-bottom: 25px;
-            padding: 20px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(76, 175, 80, 0.1);
-        }
-
-        .question h4 {
-            color: #2e7d32;
-            margin-bottom: 15px;
-            font-size: 1.1em;
-        }
-
-        .option {
-            margin: 10px 0;
-            padding: 12px;
-            background: #f1f8e9;
-            border-radius: 6px;
-            transition: all 0.2s ease;
-            cursor: pointer;
-            border: 1px solid transparent;
-            display: flex;
-            align-items: center;
-        }
-
-        .option:hover {
-            background: #e8f5e8;
-            border-color: #81c784;
-            transform: translateX(5px);
-        }
-
-        .option input[type="radio"] {
-            margin-right: 12px;
-            transform: scale(1.2);
-            accent-color: #4caf50;
-            flex-shrink: 0;
-        }
-
-        .option label {
-            cursor: pointer;
-            flex: 1;
-        }
-
-        .option .points {
-            display: none;
-        }
-
-        .option.disabled {
-            opacity: 0.5;
-            background: #f5f5f5;
-            cursor: not-allowed;
-        }
-
-        .option.disabled input[type="radio"] {
-            cursor: not-allowed;
-        }
-
-        .option.selected {
-            background: #e8f5e8;
-            border-color: #4caf50;
-        }
-
-        .results-section {
-            background: #e8f5e8;
-            border: 2px solid #4caf50;
-            border-radius: 10px;
-            padding: 25px;
-            margin-top: 30px;
-            text-align: center;
-        }
-
-        .score-display {
-            font-size: 2em;
-            font-weight: bold;
-            color: #2e7d32;
-            margin: 15px 0;
-        }
-
-        .classification {
-            font-size: 1.3em;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 15px 0;
-            font-weight: bold;
-        }
-
-        .classification.software {
-            background: #c8e6c9;
-            color: #1b5e20;
-            border: 1px solid #81c784;
-        }
-
-        .classification.gray-zone {
-            background: #fff9c4;
-            color: #33691e;
-            border: 1px solid #aed581;
-        }
-
-        .classification.application {
-            background: #a5d6a7;
-            color: #0d4211;
-            border: 1px solid #66bb6a;
-        }
-
-        .additional-criteria {
-            background: #fff9c4;
-            border: 1px solid #aed581;
-            padding: 20px;
-            margin-top: 20px;
-            border-radius: 8px;
-            display: none;
-        }
-
-        .additional-criteria.show {
-            display: block;
-        }
-
-        .examples {
-            margin-top: 30px;
-            padding: 25px;
-            background: #f1f8e9;
-            border-radius: 10px;
-        }
-
-        .examples h4 {
-            color: #1b5e20;
-            margin-bottom: 15px;
-        }
-
-        .examples ul {
-            list-style-type: none;
-            padding-left: 0;
-        }
-
-        .examples li {
-            padding: 5px 0;
-            padding-left: 20px;
-            position: relative;
-        }
-
-        .examples li:before {
-            content: "→";
-            position: absolute;
-            left: 0;
-            color: #4caf50;
-            font-weight: bold;
-        }
-
-        .action-buttons {
-            margin-top: 30px;
-            text-align: center;
-        }
-
-        .btn {
-            background: linear-gradient(135deg, #4caf50, #388e3c);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            margin: 0 10px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: all 0.3s ease;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
-            background: linear-gradient(135deg, #388e3c, #2e7d32);
-        }
-
-        .btn.secondary {
-            background: linear-gradient(135deg, #ff9800, #f57c00);
-        }
-
-        .btn.secondary:hover {
-            background: linear-gradient(135deg, #f57c00, #ef6c00);
-        }
-
-        .btn.selected {
-            background: linear-gradient(135deg, #2e7d32, #1b5e20);
-            box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
-        }
-
-        .btn.secondary.selected {
-            background: linear-gradient(135deg, #ef6c00, #e65100);
-            box-shadow: 0 0 10px rgba(255, 152, 0, 0.5);
-        }
-
-        .evaluation-details {
-            margin-top: 20px;
-            padding: 20px;
-            background: white;
-            border-radius: 8px;
-            border: 1px solid #c8e6c9;
-        }
-
-        .evaluation-details input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            margin: 5px 0;
-            border: 1px solid #c8e6c9;
-            border-radius: 4px;
-            font-size: 1em;
-        }
-
-        .evaluation-details input[type="text"]:focus {
-            outline: none;
-            border-color: #4caf50;
-            box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
-        }
-
-        .progress-bar {
-            background: #e0e0e0;
-            height: 8px;
-            border-radius: 4px;
-            margin: 20px 0;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            background: linear-gradient(90deg, #4caf50, #66bb6a);
-            height: 100%;
-            width: 0%;
-            transition: width 0.3s ease;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                margin: 10px;
-                border-radius: 10px;
-            }
-            
-            .content {
-                padding: 20px;
-            }
-            
-            .header h1 {
-                font-size: 1.8em;
-            }
-        }
+        body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f4f6f8; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; user-select: none; }
+        .container { background: white; padding: 2.5rem; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 100%; max-width: 750px; text-align: center; }
+        h2 { color: #2c3e50; margin-bottom: 0.5rem; }
+        .timer-box { font-size: 1.1rem; font-weight: 700; color: #e74c3c; margin: 15px 0; display: inline-block; padding: 5px 15px; background: #fdedec; border-radius: 20px; }
+        .question { font-size: 1.15rem; line-height: 1.5; margin-bottom: 1.5rem; color: #34495e; font-weight: 500; min-height: 70px; display: flex; align-items: center; justify-content: center; }
+        .options { display: grid; grid-template-columns: 1fr; gap: 12px; text-align: left; }
+        button { padding: 14px 20px; border: 1px solid #dcdcdc; border-radius: 8px; background: #fff; cursor: pointer; transition: all 0.2s; font-size: 0.95rem; color: #444; position: relative; }
+        button:hover { background-color: #ebf5fb; border-color: #3498db; color: #2980b9; }
+        button:active { transform: scale(0.99); }
+        .hidden { display: none; }
+        .result-box { margin-top: 20px; padding: 25px; background: #2c3e50; color: white; border-radius: 8px; }
+        .verification-code { background: #000; color: #00ff00; padding: 15px; font-family: 'Courier New', monospace; letter-spacing: 3px; font-size: 1.5rem; margin-top: 15px; border-radius: 4px; border: 1px solid #00ff00; }
+        .progress { font-size: 0.85rem; color: #95a5a6; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+        .locked-message { color: #721c24; background-color: #f8d7da; border-color: #f5c6cb; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Software vs. Application Questionnaire</h1>
-            <p>IT Tool Classification Assessment Framework</p>
-            <p style="margin-top: 15px; font-size: 1.1em; line-height: 1.5;">
-                Use this tool to identify if the IT tool you are looking to onboard into Opella is an application or a Software so you can follow the right process based on that.
-            </p>
-        </div>
 
-        <div class="content">
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
-            </div>
+<div class="container" id="quiz-container">
+    <h2>Architecture & Infrastructure Assessment</h2>
+    <div class="progress" id="progress">Initiating...</div>
+    <div class="timer-box">Time Remaining: <span id="timer">20</span>s</div>
+    <div class="question" id="question-text">Loading...</div>
+    <div class="options" id="options-container"></div>
+</div>
 
-            <form id="questionnaireForm">
-                <!-- Initial Filter Question -->
-                <div class="initial-filter">
-                    <h2>⭐ INITIAL QUESTION</h2>
-                    <h4>Is this tool going to be used for personal productivity/basic communication (email, calendars, documents, design, PDF readers, standard office tools. or requires installation on the computer.)?</h4>
-                    
-                    <div style="display: flex; gap: 20px; margin-top: 20px; justify-content: center;">
-                        <button type="button" class="btn" id="btnYes" onclick="selectInitialAnswer('yes')" style="padding: 15px 30px; font-size: 1.1em; font-weight: 600;">
-                            Yes
-                        </button>
-                        <button type="button" class="btn secondary" id="btnNo" onclick="selectInitialAnswer('no')" style="padding: 15px 30px; font-size: 1.1em; font-weight: 600;">
-                            No
-                        </button>
-                    </div>
-
-                    <div class="registration-link" id="softwareResult" style="display: none;">
-                        <p><strong>Since you were able to answer yes to this question your tool is definitely a Software.</strong></p>
-                        <p><strong>Please choose an option below or in case of doubts send your evaluation to us by filling out the evaluation details and pressing the button at the end of the form and we will contact you.</strong></p>
-                        <div style="margin-top: 20px; text-align: center;">
-                            <a href="https://forms.office.com/pages/responsepage.aspx?id=1sijrHGqGk6hDgNXL8WMC0eQj9dExIZEjJAmwS4lo81UMkRDTDUxQjlPSzBPUDdCRFFMTElPS0tFNS4u&route=shorturl" target="_blank" style="display: inline-block; margin: 10px; padding: 12px 24px; background: #4caf50; color: white; text-decoration: none; border-radius: 5px; font-weight: 600;">Software Request Form</a>
-                            <a href="https://sanofi.sharepoint.com/:p:/r/sites/CHCDigitalOperationalExcellence/Shared%20Documents/40.%20Ops%20and%20Dwp%20Playbook/Digital%20Workplace/09.Software%20Life%20Cycle%20Management/Tactical%20Solution%20Software%20Life%20Cycle/Software%20Life%20Cycle%20Process.pptx?d=w5e1c4957271646488ac97205a5944f4a&csf=1&web=1&e=213hwa" target="_blank" style="display: inline-block; margin: 10px; padding: 12px 24px; background: #4caf50; color: white; text-decoration: none; border-radius: 5px; font-weight: 600;">Software Life Cycle Process</a>
-                        </div>
-                    </div>
-
-                    <div class="registration-link" id="evaluationMessage" style="background: #fff3cd; border-color: #ffeaa7; display: none;">
-                        <p><strong>Since you selected no, it could be the case that your tool is an Application.</strong></p>
-                        <p>Fill out the evaluation details, answer the questions below thinking carefully and find out the score to clarify this.</p>
-                    </div>
-                </div>
-
-                <!-- Evaluation Details (shown when No is selected) -->
-                <div class="evaluation-details" id="evaluationDetailsSection" style="display: none; margin-bottom: 30px;">
-                    <h3 style="color: #1b5e20; margin-bottom: 15px; font-size: 1.4em;">Evaluation Details:</h3>
-                    <input type="text" id="toolName" placeholder="Tool being evaluated">
-                    <input type="text" id="evaluator" placeholder="Evaluator">
-                    <input type="text" id="evaluationDate" placeholder="Date" readonly>
-                    <input type="text" id="additionalNotes" placeholder="Additional notes">
-                </div>
-
-                <!-- Section A: Business Criticality and Scope -->
-                <div class="section" id="detailedQuestions" style="display: none;">
-                    <h3>Section A: Business Criticality and Scope</h3>
-                    
-                    <div class="question">
-                        <h4>1. What happens if this tool is unavailable for 24-48 hours?</h4>
-                        <div class="option">
-                            <input type="radio" id="q1_0" name="q1" value="0">
-                            <label for="q1_0">Inconvenience in individual tasks (e.g., can't read PDFs or design)</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" id="q1_1" name="q1" value="1">
-                            <label for="q1_1">General productivity reduction but alternatives exist (e.g., Outlook down, use webmail)</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" id="q1_3" name="q1" value="3">
-                            <label for="q1_3">A specific business process stops</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" id="q1_5" name="q1" value="5">
-                            <label for="q1_5">Multiple critical business processes are paralyzed</label>
-                        </div>
-                    </div>
-
-                    <div class="question">
-                        <h4>2. How many departments/areas use this tool regularly?</h4>
-                        <div class="option">
-                            <input type="radio" id="q2_0" name="q2" value="0">
-                            <label for="q2_0">1 specific department or area</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" id="q2_2" name="q2" value="2">
-                            <label for="q2_2">2-3 related departments</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" id="q2_4" name="q2" value="4">
-                            <label for="q2_4">4-6 diverse departments</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" id="q2_5" name="q2" value="5">
-                            <label for="q2_5">Entire organization or more than 6 departments</label>
-                        </div>
-                    </div>
-
-                    <div class="question">
-                        <h4>3. Is this tool mandatory for regulatory compliance or audits?</h4>
-                        <div class="option">
-                            <input type="radio" id="q3_0" name="q3" value="0">
-                            <label for="q3_0">No regulatory impact</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" id="q3_2" name="q3" value="2">
-                            <label for="q3_2">Facilitates compliance but not critical</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" id="q3_5" name="q3" value="5">
-                            <label for="q3_5">Critical for regulatory compliance or audits</label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Section B: Dependencies and Integrations -->
-                <div class="section" style="display: none;">
-                    <h3>Section B: Dependencies and Integrations</h3>
-                    
-                    <div class="question">
-                        <h4>4. How many other systems depend on this tool to function?</h4>
-                        <div class="option">
-                            <input type="radio" id="q4_0" name="q4" value="0">
-                            <label for="q4_0">None, functions independently</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" id="q4_2" name="q4" value="2">
-                            <label for="q4_2">1-2 systems have minor integrations</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" id="q4_4" name="q4" value="4">
-                            <label for="q4_4">3-5 systems have important integrations</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" id="q4_5" name="q4" value="5">
-                            <label for="q4_5">More than 5 systems or critical infrastructure integrations</label>
-                        </div>
-                    </div>
-
-                    <div class="question">
-                        <h4>5. Does this tool exchange critical data with other enterprise systems?</h4>
-                        <div class="option">
-                            <input type="radio" id="q5_0" name="q5" value="0">
-                            <label for="q5_0">Doesn't exchange data or only exports occasional reports</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" id="q5_2" name="q5" value="2">
-                            <label for="q5_2">Exchanges non-critical data occasionally</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" id="q5_4" name="q5" value="4">
-                            <label for="q5_4">Exchanges important data regularly</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" id="q5_5" name="q5" value="5">
-                            <label for="q5_5">Is source of truth for critical business data</label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Section C: Management and Administration -->
-                <div class="section" style="display: none;">
-                    <h3>Section C: Management and Administration</h3>
-                    
-                    <div class="question">
-                        <h4>6. Who can request access or cancel licenses for this tool?</h4>
-                        <div class="option">
-                            <input type="radio" id="q6_0" name="q6" value="0">
-                            <label for="q6_0">End users or direct supervisors</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" id="q6_2" name="q6" value="2">
-                            <label for="q6_2">Department heads with simple approval</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" id="q6_4" name="q6" value="4">
-                            <label for="q6_4">Requires IT and/or finance approval</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" id="q6_5" name="q6" value="5">
-                            <label for="q6_5">Requires executive committee or complex formal process</label>
-                        </div>
-                    </div>
-
-                    <div class="question">
-                        <h4>7. What level of configuration did the initial implementation require?</h4>
-                        <div class="option">
-                            <input type="radio" id="q7_0" name="q7" value="0">
-                            <label for="q7_0">Basic setup (less than 1 week)</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" id="q7_2" name="q7" value="2">
-                            <label for="q7_2">Moderate configuration (1-4 weeks)</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" id="q7_4" name="q7" value="4">
-                            <label for="q7_4">Complex configuration (1-3 months)</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" id="q7_5" name="q7" value="5">
-                            <label for="q7_5">Enterprise implementation (more than 3 months)</label>
-                        </div>
-                    </div>
-
-                    <div class="question">
-                        <h4>8. Does it require specialized personnel for administration?</h4>
-                        <div class="option">
-                            <input type="radio" id="q8_0" name="q8" value="0">
-                            <label for="q8_0">Administration by end users or general IT</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" id="q8_2" name="q8" value="2">
-                            <label for="q8_2">Requires occasional specific knowledge</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" id="q8_4" name="q8" value="4">
-                            <label for="q8_4">Requires dedicated part-time administrator</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" id="q8_5" name="q8" value="5">
-                            <label for="q8_5">Requires dedicated full-time administrator(s)</label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Section D: User Impact -->
-                <div class="section" style="display: none;">
-                    <h3>Section D: User Impact</h3>
-                    
-                    <div class="question">
-                        <h4>9. Does this tool manage specific business processes of your organization?</h4>
-                        <div class="option">
-                            <input type="radio" id="q9_0" name="q9" value="0">
-                            <label for="q9_0">No, it's a standard productivity tool</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" id="q9_2" name="q9" value="2">
-                            <label for="q9_2">Yes, but secondary processes</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" id="q9_5" name="q9" value="5">
-                            <label for="q9_5">Yes, critical and organization-specific processes</label>
-                        </div>
-                    </div>
-
-                    <div class="question">
-                        <h4>10. How much training do users require to use this tool effectively?</h4>
-                        <div class="option">
-                            <input type="radio" id="q10_0" name="q10" value="0">
-                            <label for="q10_0">Self-learning or basic tutorial</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" id="q10_2" name="q10" value="2">
-                            <label for="q10_2">1–2-hour training session</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" id="q10_4" name="q10" value="4">
-                            <label for="q10_4">1–2-day training course</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" id="q10_5" name="q10" value="5">
-                            <label for="q10_5">Extensive training (more than 2 days) or certification</label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Section E: Business Model and Replaceability -->
-                <div class="section" style="display: none;">
-                    <h3>Section E: Business Model and Replaceability</h3>
-                    
-                    <div class="question">
-                        <h4>11. How are licenses structured?</h4>
-                        <div class="option">
-                            <input type="radio" id="q11_0" name="q11" value="0">
-                            <label for="q11_0">Individual licenses per user/month</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" id="q11_2" name="q11" value="2">
-                            <label for="q11_2">Department packages</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" id="q11_4" name="q11" value="4">
-                            <label for="q11_4">Enterprise licenses with volume discounts</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" id="q11_5" name="q11" value="5">
-                            <label for="q11_5">Global enterprise contract with specific SLA</label>
-                        </div>
-                    </div>
-
-                    <div class="question">
-                        <h4>12. Is this tool easily replaceable by market alternatives?</h4>
-                        <div class="option">
-                            <input type="radio" id="q12_0" name="q12" value="0">
-                            <label for="q12_0">Yes, multiple similar alternatives exist</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" id="q12_3" name="q12" value="3">
-                            <label for="q12_3">Alternatives exist but require complex migration</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" id="q12_5" name="q12" value="5">
-                            <label for="q12_5">It's unique or very specific to our business</label>
-                        </div>
-                    </div>
-
-                    <div class="question">
-                        <h4>13. What volume of data does this tool handle?</h4>
-                        <div class="option">
-                            <input type="radio" id="q13_0" name="q13" value="0">
-                            <label for="q13_0">Limited and specific data</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" id="q13_2" name="q13" value="2">
-                            <label for="q13_2">Important departmental data</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" id="q13_4" name="q13" value="4">
-                            <label for="q13_4">Multi-departmental data</label>
-                        </div>
-                        <div class="option">
-                            <input type="radio" id="q13_5" name="q13" value="5">
-                            <label for="q13_5">Central repository of enterprise data</label>
-                        </div>
-                    </div>
-                </div>
-            </form>
-
-            <!-- Results Section -->
-            <div class="results-section" id="resultsSection" style="display: none;">
-                <h3>Final Classification</h3>
-                <div class="score-display">
-                    Total Score: <span id="totalScore">0</span> / 65
-                </div>
-                <div id="classificationResult">
-                    <!-- Dynamic classification will appear here -->
-                </div>
-            </div>
-
-            <!-- Examples Section -->
-            <div class="examples">
-                <h4>Common Examples for Reference:</h4>
-                
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 15px;">
-                    <div>
-                        <h5 style="color: #1b5e20;">Typical SOFTWARE (should score 0-15):</h5>
-                        <ul>
-                            <li>Adobe Reader (PDF viewer)</li>
-                            <li>Canva (design tool)</li>
-                            <li>Microsoft Outlook (email client)</li>
-                            <li>SAP GUI (SAP client interface)</li>
-                            <li>Zoom client (meeting software)</li>
-                            <li>Standard antivirus software</li>
-                        </ul>
-                    </div>
-                    
-                    <div>
-                        <h5 style="color: #2e7d32;">Typical BUSINESS APPLICATIONS (should score 33+):</h5>
-                        <ul>
-                            <li>SAP ERP (enterprise system)</li>
-                            <li>Salesforce (CRM platform)</li>
-                            <li>Workday (HR management system)</li>
-                            <li>ServiceNow (ITSM platform)</li>
-                            <li>Custom-built business systems</li>
-                        </ul>
-                    </div>
-                    
-                    <div>
-                        <h5 style="color: #33691e;">Gray Zone Examples (review needed):</h5>
-                        <ul>
-                            <li>Jira (could be software for dev teams or application for enterprise project management)</li>
-                            <li>Slack (communication tool vs. enterprise collaboration platform)</li>
-                            <li>Tableau (reporting tool vs. enterprise BI platform)</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="action-buttons">
-                <button type="button" class="btn" onclick="sendEvaluation()">📧 Send Evaluation</button>
-                <button type="button" class="btn secondary" onclick="resetForm()">🔄 Reset</button>
-            </div>
-        </div>
+<div class="container hidden" id="result-container">
+    <h2>Assessment Complete</h2>
+    <div class="result-box">
+        <p>Please email the following verification code to the recruiter immediately.</p>
+        <div class="verification-code" id="verification-code">GENERATING...</div>
     </div>
+    <p style="margin-top:20px; font-size:0.9rem; color:#7f8c8d;">You may close this window.</p>
+</div>
 
-    <script>
-        // Set current date
-        document.getElementById('evaluationDate').value = new Date().toLocaleDateString();
+<div class="container hidden" id="locked-container">
+    <div class="locked-message">
+        <h3>Session Locked</h3>
+        <p>This assessment is limited to a single attempt.</p>
+        <p>Our records indicate this test has already been completed on this device.</p>
+    </div>
+</div>
 
-        let initialAnswer = null;
+<script>
+    // --- CONFIGURATION ---
+    const TIME_PER_QUESTION = 20; // Increased slightly for reading complex questions
+    
+    // --- ENCRYPTION HELPER ---
+    // We compare Base64 strings to ensure accuracy without revealing answers in code.
+    const checkAns = (selected, encodedCorrect) => btoa(selected) === encodedCorrect;
 
-        // Handle initial question buttons
-        function selectInitialAnswer(answer) {
-            initialAnswer = answer;
-            
-            // Update button states
-            document.getElementById('btnYes').classList.remove('selected');
-            document.getElementById('btnNo').classList.remove('selected');
-            
-            // Clear previous classification result
-            const classificationResult = document.getElementById('classificationResult');
-            if (classificationResult) {
-                classificationResult.innerHTML = '';
+    // --- QUESTIONS (25 Deep Technical) ---
+    const questions = [
+        // TEAMS & VOICE (Deep Dive)
+        { 
+            q: "In a Direct Routing setup with Media Bypass enabled, how does the media traffic flow for an internal user?",
+            options: ["Teams Client -> Internet -> MS Cloud -> SBC", "Teams Client -> Internal Network -> SBC (No Cloud hairpin)", "Teams Client -> MS Cloud -> Media Processor -> SBC", "Teams Client -> Edge Server -> SBC"],
+            a: "VGVhbXMgQ2xpZW50IC0+IEludGVybmFsIE5ldHdvcmsgLT4gU0JDIChObyBDbG91ZCBoYWlycGluKQ==" 
+        },
+        { 
+            q: "You need to normalize a localized number format (e.g., 040-1234) to E.164 for Teams routing. Where is this regex rule applied first?",
+            options: ["SBC Dial Plan", "Teams Tenant Dial Plan", "Voice Routing Policy", "PSTN Gateway"],
+            a: "VGVhbXMgVGVuYW50IERpYWwgUGxhbg==" 
+        },
+        { 
+            q: "Which PowerShell cmdlet grants a specific Voice Routing Policy to a user?",
+            options: ["Grant-CsOnlineVoiceRoutingPolicy", "Set-CsOnlineVoiceRoutingPolicy", "Grant-CsTeamsCallingPolicy", "New-CsOnlineVoiceRoutingPolicy"],
+            a: "R3JhbnQtQ3NPbmxpbmVWb2ljZVJvdXRpbmdQb2xpY3k=" 
+        },
+        { 
+            q: "If an SBC certificate expires in a Direct Routing topology, what is the immediate impact?",
+            options: ["Only outbound calls fail", "Only inbound calls fail", "SIP Options Ping fails, marking the trunk as 'Down'", "Media flows but signaling fails"],
+            a: "U0lQIE9wdGlvbnMgUGluZyBmYWlscywgbWFya2luZyB0aGUgdHJ1bmsgYXMgJ0Rvd24n" 
+        },
+        { 
+            q: "In Operator Connect, who manages the SBC infrastructure?",
+            options: ["The Customer (You)", "Microsoft", "The Operator (Carrier)", "Shared Responsibility"],
+            a: "VGhlIE9wZXJhdG9yIChDYXJyaWVyKQ==" 
+        },
+        
+        // EXCHANGE & HYBRID
+        { 
+            q: "In an Exchange Hybrid deployment, what is the primary function of the Hybrid Configuration Wizard (HCW) regarding connectors?",
+            options: ["It creates Receive Connectors on-prem only", "It creates Send/Receive connectors for secure mail flow (TLS) between On-Prem and O365", "It migrates MX records automatically", "It configures DAG replication to the cloud"],
+            a: "SXQgY3JlYXRlcyBTZW5kL1JlY2VpdmUgY29ubmVjdG9ycyBmb3Igc2VjdXJlIG1haWwgZmxvdyAoVExTKSBiZXR3ZWVuIE9uLVByZW0gYW5kIE8zNjU=" 
+        },
+        { 
+            q: "A user deletes an email from 'Deleted Items'. Where does it go next, and how long does it stay by default?",
+            options: ["Purgatory / 30 days", "Recoverable Items (Deletions) / 14 days", "SharePoint Recycle Bin / 90 days", "Permanently deleted immediately"],
+            a: "UmVjb3ZlcmFibGUgSXRlbXMgKERlbGV0aW9ucykgLyAxNCBkYXlz" 
+        },
+        { 
+            q: "Which Exchange Online feature allows you to search across all mailboxes for eDiscovery without assigning permissions to each one?",
+            options: ["Litigation Hold", "Content Search (Compliance Center)", "Journaling", "Transport Rules"],
+            a: "Q29udGVudCBTZWFyY2ggKENvbXBsaWFuY2UgQ2VudGVyKQ==" 
+        },
+        { 
+            q: "You see '450 4.4.312 DNS query failed' in message trace. What is the most likely cause?",
+            options: ["Expired SPF record", "Target MX record cannot be resolved or is misconfigured", "User mailbox is full", "TLS handshake failure"],
+            a: "VGFyZ2V0IE1YIHJlY29yZCBjYW5ub3QgYmUgcmVzb2x2ZWQgb3IgaXMgbWlzY29uZmlndXJlZA==" 
+        },
+
+        // ONEDRIVE & SHAREPOINT
+        { 
+            q: "What happens to the data when a 'Preservation Hold Library' is active on a SharePoint site and a user deletes a file?",
+            options: ["The file is blocked from deletion", "The file is moved to the Preservation Hold Library and retained", "The file is deleted but index remains", "Administrator approval is required"],
+            a: "VGhlIGZpbGUgaXMgbW92ZWQgdG8gdGhlIFByZXNlcnZhdGlvbiEhbGQgTGlicmFyeSBhbmQgcmV0YWluZWQ=" 
+        },
+        { 
+            q: "For 'Known Folder Move' (KFM) to work silently, which prerequisite is critical?",
+            options: ["User must be local Admin", "User must be signed in to OneDrive with the correct tenant account", "BitLocker must be enabled", "VPN must be active"],
+            a: "VXNlciBtdXN0IGJlIHNpZ25lZCBpbiB0byBPbmVEcml2ZSB3aXRoIHRoZSBjb3JyZWN0IHRlbmFudCBhY2NvdW50" 
+        },
+        { 
+            q: "What is the maximum storage limit for a standard SharePoint Online Site Collection (without purchasing extra)?",
+            options: ["1 TB", "25 TB", "5 TB", "Unlimited"],
+            a: "MjUgVEI=" 
+        },
+        
+        // SECURITY & IDENTITY
+        { 
+            q: "Which Conditional Access setting prevents legacy authentication (IMAP/POP/SMTP)?",
+            options: ["Client Apps condition -> Uncheck 'Other clients'", "User Risk Policy", "MFA Enforcement", "Sign-in Risk Policy"],
+            a: "Q2xpZW50IEFwcHMgY29uZGl0aW9uIC0+IFVuY2hlY2sgJ090aGVyIGNsaWVudHMn" 
+        },
+        { 
+            q: "To grant an external vendor access to a single Team without giving them a full license, what is the best method?",
+            options: ["Create a licensed user for them", "Azure B2B Guest Access", "Share credentials", "Federated Trust"],
+            a: "QXp1cmUgQjJCIEd1ZXN0IEFjY2Vzcw==" 
+        },
+        { 
+            q: "What is the primary difference between 'Password Hash Sync' (PHS) and 'Pass-through Authentication' (PTA)?",
+            options: ["PHS requires ADFS", "PTA validates passwords against on-prem AD in real-time", "PHS is less secure", "PTA does not support MFA"],
+            a: "UFRBIHZhbGlkYXRlcyBwYXNzd29yZHMgYWdhaW5zdCBvbi1wcmVtIEFEIGluIHJlYWwtdGltZQ==" 
+        },
+
+        // ARCHITECTURE & GENERAL
+        { 
+            q: "In a VDI/Cloud PC environment, why is 'Split Tunneling' recommended for Teams traffic?",
+            options: ["To encrypt traffic twice", "To offload audio/video traffic directly to the Internet instead of the VPN concentrator", "To route traffic via the Datacenter for inspection", "To disable video"],
+            a: "VG8gb2ZmbG9hZCBhdWRpby92aWRlbyB0cmFmZmljIGRpcmVjdGx5IHRvIHRoZSBJbnRlcm5ldCBpbnN0ZWFkIG9mIHRoZSBWUE4gY29uY2VudHJhdG9y" 
+        },
+        { 
+            q: "Which DNS record type is used by Teams Auto Discovery (SRV)?",
+            options: ["_sip._tls", "_teams._tcp", "autodiscover.xml", "sip.internal"],
+            a: "X3NpcC5fdGxz" 
+        },
+        { 
+            q: "If you need to prevent users from forwarding a sensitive email to external addresses, what do you use?",
+            options: ["Transport Rule", "Information Rights Management (IRM) / Sensitivity Labels", "S/MIME", "DKIM"],
+            a: "SW5mb3JtYXRpb24gUmlnaHRzIE1hbmFnZW1lbnQgKElSTSkgLyBTZW5zaXRpdml0eSBMYWJlbHM=" 
+        },
+        { 
+            q: "What is the 'Semantic Index' in the context of Copilot for M365?",
+            options: ["A list of user passwords", "A map of user and data relationships (Graph) used to ground AI responses", "The SharePoint search crawler", "An Exchange database"],
+            a: "QSBtYXAgb2YgdXNlciBhbmQgZGF0YSByZWxhdGlvbnNoaXBzIChHcmFwaCkgdXNlZCB0byBncm91bmQgQUkgcmVzcG9uc2Vz" 
+        },
+        { 
+            q: "Which command would you use to force a specific directory sync cycle in AD Connect?",
+            options: ["Start-ADSyncSyncCycle -PolicyType Delta", "Update-ADSync", "Sync-Now", "Force-DirSync"],
+            a: "U3RhcnQtQURTeW5jU3luY0N5Y2xlIC1Qb2xpY3lUeXBlIERlbHRh" 
+        },
+        
+        // SCENARIO
+        { 
+            q: "A user complains their Teams Status is unknown and Calendar is missing. What is the most likely root cause?",
+            options: ["Teams License is missing", "Exchange Web Services (EWS) is blocked or failing", "SIP Address mismatch", "OneDrive is full"],
+            a: "RXhjaGFuZ2UgV2ViIFNlcnZpY2VzIChFV1MpIGlzIGJsb2NrZWQgb3IgZmFpbGluZw==" 
+        },
+        { 
+            q: "You need to retain Chats for 7 years but delete Channel messages after 3 years. How do you configure this?",
+            options: ["Two separate Retention Policies applied to different scopes", "One policy with a condition", "It is not possible", "Use Legal Hold"],
+            a: "VHdvIHNlcGFyYXRlIFJldGVudGlvbiBQb2xpY2llcyBhcHBsaWVkIHRvIGRpZmZlcmVudCBzY29wZXM=" 
+        },
+        { 
+            q: "What is the main advantage of 'Microsoft 365 Groups' over traditional Security Groups?",
+            options: ["They have no owners", "They provide a shared workspace (Mailbox, Calendar, Site, Team) automatically", "They are on-prem only", "They don't sync to Azure AD"],
+            a: "VGhleSBwcm92aWRlIGEgc2hhcmVkIHdvcmtzcGFjZSAoTWFpbGJveCwgQ2FsZW5kYXIsIFNpdGUsIFRlYW0pIGF1dG9tYXRpY2FsbHk=" 
+        },
+        { 
+            q: "When using PIM (Privileged Identity Management), what is 'Just-In-Time' access?",
+            options: ["Users have Admin rights permanently", "Users request Admin rights only when needed for a specific duration", "Admin rights are disabled", "Rights are granted via script"],
+            a: "VXNlcnMgcmVxdWVzdCBBZG1pbiByaWdodHMgb25seSB3aGVuIG5lZWRlZCBmb3IgYSBzcGVjaWZpYyBkdXJhdGlvbg==" 
+        },
+        { 
+            q: "Which tool provides the 'Productivity Score' and 'Endpoint Analytics'?",
+            options: ["Intune / Endpoint Manager", "M365 Admin Center / Viva Insights", "Azure Active Directory", "Exchange Admin Center"],
+            a: "TTM2NSBBZG1pbiBDZW50ZXIgLyBWaXZhIEluc2lnaHRz" 
+        }
+    ];
+
+    // --- STATE MANAGEMENT ---
+    let currentQ = 0;
+    let score = 0;
+    let timeLeft = TIME_PER_QUESTION;
+    let timerInterval;
+
+    // --- DOM ELEMENTS ---
+    const quizContainer = document.getElementById('quiz-container');
+    const resultContainer = document.getElementById('result-container');
+    const lockedContainer = document.getElementById('locked-container');
+    const questionText = document.getElementById('question-text');
+    const optionsContainer = document.getElementById('options-container');
+    const timerDisplay = document.getElementById('timer');
+    const progressDisplay = document.getElementById('progress');
+
+    // --- ONE ATTEMPT CHECK (Local Storage) ---
+    // If you want to reset this for yourself, open DevTools -> Application -> Local Storage -> Right click -> Clear
+    if (localStorage.getItem('nanda_tech_assess_v2')) {
+        quizContainer.classList.add('hidden');
+        lockedContainer.classList.remove('hidden');
+    } else {
+        startQuiz();
+    }
+
+    function startQuiz() {
+        loadQuestion();
+    }
+
+    function startTimer() {
+        timeLeft = TIME_PER_QUESTION;
+        timerDisplay.innerText = timeLeft;
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            timerDisplay.innerText = timeLeft;
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                recordAnswer(null); // Time out = wrong
             }
-            
-            if (answer === 'yes') {
-                document.getElementById('btnYes').classList.add('selected');
-                document.getElementById('softwareResult').style.display = 'block';
-                document.getElementById('evaluationMessage').style.display = 'none';
-                document.getElementById('evaluationDetailsSection').style.display = 'none';
-                hideAllQuestionSections();
-                document.getElementById('resultsSection').style.display = 'none';
-                updateProgress(1, 14);
-            } else {
-                document.getElementById('btnNo').classList.add('selected');
-                document.getElementById('softwareResult').style.display = 'none';
-                document.getElementById('evaluationMessage').style.display = 'block';
-                document.getElementById('evaluationDetailsSection').style.display = 'block';
-                showAllQuestionSections();
-                document.getElementById('resultsSection').style.display = 'block';
-                // Initialize score display
-                document.getElementById('totalScore').textContent = '0';
-                updateResults();
-            }
-        }
+        }, 1000);
+    }
 
-        function hideAllQuestionSections() {
-            const sections = document.querySelectorAll('.section');
-            sections.forEach(section => {
-                section.style.display = 'none';
-            });
+    function loadQuestion() {
+        if (currentQ >= questions.length) {
+            finishQuiz();
+            return;
         }
+        
+        const qData = questions[currentQ];
+        questionText.innerText = qData.q;
+        optionsContainer.innerHTML = '';
+        progressDisplay.innerText = `QUESTION ${currentQ + 1} OF ${questions.length}`;
 
-        function showAllQuestionSections() {
-            const sections = document.querySelectorAll('.section');
-            sections.forEach(section => {
-                section.style.display = 'block';
-            });
-        }
+        // Randomize options for display
+        const shuffledOptions = [...qData.options].sort(() => Math.random() - 0.5);
 
-        // Handle all other questions
-        document.querySelectorAll('input[type="radio"]').forEach(radio => {
-            radio.addEventListener('change', function() {
-                updateResults();
-                updateOptionStyles(this);
-            });
+        shuffledOptions.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.innerText = opt;
+            btn.onclick = () => recordAnswer(opt);
+            optionsContainer.appendChild(btn);
         });
 
-        function updateOptionStyles(selectedRadio) {
-            const questionName = selectedRadio.name;
-            const allOptionsInQuestion = document.querySelectorAll(`input[name="${questionName}"]`);
-            
-            allOptionsInQuestion.forEach(option => {
-                const optionDiv = option.closest('.option');
-                if (option === selectedRadio) {
-                    optionDiv.classList.add('selected');
-                    optionDiv.classList.remove('disabled');
-                    option.disabled = false;
-                } else {
-                    optionDiv.classList.add('disabled');
-                    optionDiv.classList.remove('selected');
-                    option.disabled = true; // Functionally disable the radio button
-                }
-            });
+        startTimer();
+    }
+
+    function recordAnswer(selectedOption) {
+        clearInterval(timerInterval);
+        
+        // Base64 Check - Secure and bug-free
+        if (selectedOption && checkAns(selectedOption, questions[currentQ].a)) {
+            score++;
         }
+        
+        currentQ++;
+        loadQuestion();
+    }
 
-        function updateResults() {
-            let totalScore = 0;
-            let answeredQuestions = 1; // Initial question is always answered
-            const totalQuestions = 14;
-            
-            // If initial answer is 'yes', don't calculate score
-            if (initialAnswer === 'yes') {
-                return;
-            }
+    function finishQuiz() {
+        // Lock the test
+        localStorage.setItem('nanda_tech_assess_v2', 'true');
 
-            // Calculate score from detailed questions
-            for (let i = 1; i <= 13; i++) {
-                const selectedOption = document.querySelector(`input[name="q${i}"]:checked`);
-                if (selectedOption) {
-                    totalScore += parseInt(selectedOption.value);
-                    answeredQuestions++;
-                }
-            }
+        quizContainer.classList.add('hidden');
+        resultContainer.classList.remove('hidden');
 
-            // Update score display
-            const scoreElement = document.getElementById('totalScore');
-            if (scoreElement) {
-                scoreElement.textContent = totalScore;
-            }
-            
-            // Determine classification and show result
-            if (totalScore <= 15) {
-                showSoftwareResultFromScore();
-            } else if (totalScore <= 32) {
-                showGrayZoneResult();
-            } else {
-                showApplicationResult();
-            }
+        // --- NEW OBFUSCATED SCORING LOGIC ---
+        // Formula: Hex((Score + 18) * 3)
+        // 1. Add 18 to score. 2. Multiply by 3. 3. Convert to Hex.
+        // This hides the number completely. 
+        // Example: Score 0 -> (0+18)*3 = 54 -> Hex 36
+        // Example: Score 25 -> (25+18)*3 = 129 -> Hex 81
+        
+        const calculatedVal = (score + 18) * 3;
+        const hexVal = calculatedVal.toString(16).toUpperCase();
+        
+        // Random noise generator for the prefix/middle
+        const randStr = Math.random().toString(36).substring(2, 5).toUpperCase();
+        
+        // Final Code Structure: NK-[Random]-[HexScore]
+        const code = `NK-${randStr}-${hexVal}`;
+        
+        document.getElementById('verification-code').innerText = code;
+    }
 
-            updateProgress(answeredQuestions, totalQuestions);
-        }
+    // --- SECURITY DETERRENTS ---
+    document.addEventListener('contextmenu', event => event.preventDefault());
+    document.onkeydown = function(e) {
+        if(e.keyCode == 123) return false;
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false;
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) return false;
+        if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false;
+    }
+</script>
 
-        function showSoftwareResult() {
-            const resultsSection = document.getElementById('resultsSection');
-            resultsSection.innerHTML = `
-                <div class="software-result-box">
-                    <h3>SOFTWARE Classification</h3>
-                    <p><strong>Your tool is classified as SOFTWARE</strong></p>
-                    <div style="margin-top: 20px;">
-                        <a href="#" onclick="window.open('#', '_blank')" style="display: inline-block; margin: 10px; padding: 12px 24px; background: #4caf50; color: white; text-decoration: none; border-radius: 5px; font-weight: 600;">Register your Software</a>
-                        <a href="#" onclick="window.open('Software Life Cycle Process.pptx', '_blank')" style="display: inline-block; margin: 10px; padding: 12px 24px; background: #4caf50; color: white; text-decoration: none; border-radius: 5px; font-weight: 600;">Check the Software Life Cycle Process</a>
-                    </div>
-                </div>
-            `;
-        }
-
-        function showSoftwareResultFromScore() {
-            const classificationResult = document.getElementById('classificationResult');
-            if (classificationResult) {
-                classificationResult.innerHTML = `
-                    <div class="software-result-box">
-                        <h3>SOFTWARE Classification</h3>
-                        <p><strong>Your tool is classified as SOFTWARE</strong></p>
-                        <div style="margin-top: 20px;">
-                            <a href="https://alma.sanofi.com/register" target="_blank" style="display: inline-block; margin: 10px; padding: 12px 24px; background: #4caf50; color: white; text-decoration: none; border-radius: 5px; font-weight: 600;">Register your Software</a>
-                            <a href="https://sanofi.sharepoint.com/:p:/r/sites/CHCDigitalOperationalExcellence/_layouts/15/Doc.aspx?sourcedoc=%7B5E1C4957-2716-4648-8AC9-7205A5944F4A%7D&file=Software%20Life%20Cycle%20Process.pptx&action=edit&mobileredirect=true" target="_blank" style="display: inline-block; margin: 10px; padding: 12px 24px; background: #4caf50; color: white; text-decoration: none; border-radius: 5px; font-weight: 600;">Check the Software Life Cycle Process</a>
-                        </div>
-                    </div>
-                `;
-            }
-        }
-
-        function showGrayZoneResult() {
-            const classificationResult = document.getElementById('classificationResult');
-            if (classificationResult) {
-                const toolName = document.getElementById('toolName').value || 'Unknown Tool';
-                const evaluator = document.getElementById('evaluator').value || 'Not specified';
-                const date = document.getElementById('evaluationDate').value;
-                const score = document.getElementById('totalScore').textContent;
-                const additionalNotes = document.getElementById('additionalNotes').value || 'None';
-                
-                const emailSubject = encodeURIComponent('Gray Zone Tool Classification');
-                const emailBody = encodeURIComponent(
-                    `TOOL EVALUATION RESULTS - GRAY ZONE\n\n` +
-                    `Tool Name: ${toolName}\n` +
-                    `Evaluator: ${evaluator}\n` +
-                    `Date: ${date}\n` +
-                    `Score: ${score}/65\n` +
-                    `Classification: GRAY ZONE - Requires additional review\n\n` +
-                    `Additional Notes: ${additionalNotes}\n\n` +
-                    `Please review this gray zone evaluation and provide guidance on classification.`
-                );
-                
-                classificationResult.innerHTML = `
-                    <div class="gray-zone-box">
-                        <h3>GRAY ZONE - Additional Review Required</h3>
-                        <p>If the result is between 16-32 points, consider these additional factors:</p>
-                        <ul style="margin: 15px auto; width: fit-content; text-align: left; list-style: none; padding: 0;">
-                            <li style="margin: 8px 0;">📈 <strong>Growth trend:</strong> Is its criticality expected to increase?</li>
-                            <li style="margin: 8px 0;">💰 <strong>Annual cost:</strong> Does it exceed a significant IT budget threshold?</li>
-                            <li style="margin: 8px 0;">🔒 <strong>Security risk:</strong> Does it handle sensitive or confidential data?</li>
-                            <li style="margin: 8px 0;">🔄 <strong>Available alternatives:</strong> Are there multiple similar providers or is it unique?</li>
-                            <li style="margin: 8px 0;">🎯 <strong>Strategic importance:</strong> Is it part of digital transformation initiatives?</li>
-                        </ul>
-                        <p>Please fill out the evaluation details and either <a href="mailto:Miguel.Elduque@sanofi.com?subject=${emailSubject}&body=${emailBody}" class="contact-link">contact the architecture team</a> to clarify with additional information or in case of doubts press the button at the end of the form to send the evaluation and we will contact you.</p>
-                    </div>
-                `;
-            }
-        }
-
-        function showApplicationResult() {
-            const classificationResult = document.getElementById('classificationResult');
-            if (classificationResult) {
-                const toolName = document.getElementById('toolName').value || 'Unknown Tool';
-                const evaluator = document.getElementById('evaluator').value || 'Not specified';
-                const date = document.getElementById('evaluationDate').value;
-                const score = document.getElementById('totalScore').textContent;
-                const additionalNotes = document.getElementById('additionalNotes').value || 'None';
-                
-                const emailSubject = encodeURIComponent('Business Application Registration');
-                const emailBody = encodeURIComponent(
-                    `TOOL EVALUATION RESULTS - BUSINESS APPLICATION\n\n` +
-                    `Tool Name: ${toolName}\n` +
-                    `Evaluator: ${evaluator}\n` +
-                    `Date: ${date}\n` +
-                    `Score: ${score}/65\n` +
-                    `Classification: BUSINESS APPLICATION - Enterprise application\n\n` +
-                    `Additional Notes: ${additionalNotes}\n\n` +
-                    `Please review this business application evaluation and provide guidance on registration process.`
-                );
-                
-                classificationResult.innerHTML = `
-                    <div class="classification application">
-                        <h3>BUSINESS APPLICATION</h3>
-                        <p style="font-size: 0.9em; font-weight: normal;">Please fill out the evaluation details and choose an option below. In case of doubts you can as well just send your evaluation by using the button at the end of the form and we will contact you.</p>
-                        <div style="margin-top: 20px;">
-                            <a href="https://sanofiservices.service-now.com/onesupport?id=sc_cat_item&table=sc_cat_item&sys_id=088662341bd3e8d0e4aebb739b4bcbf6&searchTerm=register%20application" target="_blank" style="display: inline-block; margin: 8px; padding: 8px 16px; background: #4caf50; color: white; text-decoration: none; border-radius: 5px; font-size: 0.9em;">APM Registration</a>
-                            <a href="mailto:Miguel.Elduque@sanofi.com?subject=${emailSubject}&body=${emailBody}" style="display: inline-block; margin: 8px; padding: 8px 16px; background: #4caf50; color: white; text-decoration: none; border-radius: 5px; font-size: 0.9em;">Contact Architecture Team</a>
-                        </div>
-                    </div>
-                `;
-            }
-        }
-
-        function updateProgress(answered, total) {
-            const percentage = (answered / total) * 100;
-            document.getElementById('progressFill').style.width = percentage + '%';
-        }
-
-        function sendEvaluation() {
-            const toolName = document.getElementById('toolName').value || 'Unknown Tool';
-            const evaluator = document.getElementById('evaluator').value || 'Not specified';
-            const date = document.getElementById('evaluationDate').value;
-            const score = document.getElementById('totalScore').textContent;
-            const additionalNotes = document.getElementById('additionalNotes').value || 'None';
-            
-            // Determine classification based on initial answer and score
-            let classification = '';
-            if (initialAnswer === 'yes') {
-                classification = 'SOFTWARE - Based on initial filter question';
-            } else {
-                const scoreNum = parseInt(score);
-                if (scoreNum <= 15) {
-                    classification = 'SOFTWARE - Based on scoring evaluation';
-                } else if (scoreNum <= 32) {
-                    classification = 'GRAY ZONE - Requires additional review';
-                } else {
-                    classification = 'BUSINESS APPLICATION - Enterprise application';
-                }
-            }
-            
-            const subject = `Request ${toolName}`;
-            const body = `TOOL EVALUATION RESULTS
-
-Tool Name: ${toolName}
-Evaluator: ${evaluator}
-Date: ${date}
-Score: ${score}/65
-Classification: ${classification}
-
-Additional Notes: ${additionalNotes}
-
-Please review this evaluation and provide guidance on next steps.`;
-            
-            // Create mailto URL with multiple recipients
-            const mailtoUrl = `mailto:guillermo.velez@sanofi.com,Feitze.Mast@sanofi.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-            
-            // Open email client
-            window.location.href = mailtoUrl;
-        }
-
-        function resetForm() {
-            if (confirm('Are you sure you want to reset the form? All data will be lost.')) {
-                document.getElementById('questionnaireForm').reset();
-                document.getElementById('toolName').value = '';
-                document.getElementById('evaluator').value = '';
-                document.getElementById('additionalNotes').value = '';
-                document.getElementById('evaluationDate').value = new Date().toLocaleDateString();
-                
-                // Reset initial buttons
-                document.getElementById('btnYes').classList.remove('selected');
-                document.getElementById('btnNo').classList.remove('selected');
-                initialAnswer = null;
-                
-                // Hide all result sections
-                document.getElementById('softwareResult').classList.remove('show');
-                document.getElementById('evaluationMessage').classList.remove('show');
-                document.getElementById('detailedQuestions').style.display = 'none';
-                document.getElementById('resultsSection').style.display = 'none';
-                
-                document.getElementById('totalScore').textContent = '0';
-                document.getElementById('progressFill').style.width = '0%';
-            }
-        }
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            // Hide all question sections initially
-            hideAllQuestionSections();
-            document.getElementById('resultsSection').style.display = 'none';
-            document.getElementById('softwareResult').style.display = 'none';
-            document.getElementById('evaluationMessage').style.display = 'none';
-            document.getElementById('evaluationDetailsSection').style.display = 'none';
-        });
-    </script>
 </body>
 </html>
